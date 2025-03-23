@@ -1,170 +1,273 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infinite Playground - Fight Endless Waves of Monsters</title>
-    <meta name="description" content="Survive endless waves of monsters in this action-packed roguelike game. Upgrade your character, collect powerful items, and face increasingly difficult challenges.">
-    <link rel="canonical" href="https://monstersurvivors.com">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        apple: {
-                            blue: '#007AFF',
-                            red: '#FF3B30',
-                            green: '#34C759',
-                            purple: '#AF52DE',
-                            yellow: '#FFCC00',
-                            orange: '#FF9500',
-                            dark: '#1C1C1E',
-                            gray: '#8E8E93',
-                            lightgray: '#F2F2F7'
-                        }
-                    }
-                }
-            }
-        }
+    <title>Infinite Playground - 免费在线游戏平台</title>
+    <meta name="description" content="Infinite Playground提供4000+免费在线游戏，包括动作、益智、体育等多种类型，无需下载，支持多平台，现在就开始游玩吧！">
+    
+    <!-- 预加载关键资源 -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- 核心样式 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="./style/style.css">
+    
+    <!-- 预加载游戏数据 -->
+    <link rel="preload" href="./js/gameData.js" as="script">
+    
+    <!-- 游戏数据脚本 -->
+    <script src="./js/gameData.js"></script>
+    <script src="./js/utils.js"></script>
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Infinite Playground",
+      "url": "https://infiniteplayground.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://infiniteplayground.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "description": "4000+免费在线游戏，包括动作、益智、体育等多种类型，无需下载，支持多平台。"
+    }
     </script>
-    <style type="text/css">
-        @media (max-width: 640px) {
-            .game-container {
-                height: 70vh;
-            }
-        }
-    </style>
+    
+    <!-- 延迟加载分析脚本 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB62Q9K21N"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-YB62Q9K21N');
+    </script>
 </head>
-<body class="bg-apple-lightgray text-apple-dark">
-    <header class="bg-apple-blue text-white p-4 md:p-6 shadow-md">
-        <div class="container mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="text-center md:text-left mb-4 md:mb-0">
-                    <h1 class="text-3xl md:text-4xl font-bold">Infinite Playground</h1>
-                    <p class="text-lg mt-2">Survive and fight against endless waves of monsters!</p>
+<body>
+    <!-- 移动端菜单切换按钮 -->
+    <button class="menu-toggle" aria-label="切换菜单">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- 侧边栏 -->
+    <aside class="sidebar" aria-label="网站导航">
+        <div class="sidebar-logo">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%237359ff'/%3E%3C/svg%3E" alt="Infinite Playground Logo" width="32" height="32">
+            <span>Infinite Playground</span>
+        </div>
+        
+        <!-- 关于我们 -->
+        <div class="nav-section">
+            <h3>关于我们</h3>
+            <p class="sidebar-description">Infinite Playground 提供最好的免费在线游戏集合，现在就开始游戏吧！</p>
+            <div class="sidebar-features">
+                <div class="feature">
+                    <i class="fas fa-gamepad" aria-hidden="true"></i>
+                    <span>4000+ 游戏</span>
                 </div>
-                <nav>
-                    <ul class="flex space-x-4">
-                        <li><a href="#game" class="hover:text-apple-yellow transition-colors">Play Now</a></li>
-                        <li><a href="#about" class="hover:text-apple-yellow transition-colors">About</a></li>
-                        <li><a href="#features" class="hover:text-apple-yellow transition-colors">Features</a></li>
-                        <li><a href="#controls" class="hover:text-apple-yellow transition-colors">Controls</a></li>
-                    </ul>
-                </nav>
+                <div class="feature">
+                    <i class="fas fa-users" aria-hidden="true"></i>
+                    <span>百万玩家</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+                    <span>全平台支持</span>
+                </div>
             </div>
         </div>
-    </header>
 
-    <main class="container mx-auto p-4 md:p-6">
-        <section id="game" class="my-8">
-            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-apple-blue">Play Infinite Playground</h2>
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div class="game-container w-full h-screen max-h-[600px]">
-                    <iframe src="https://cloud.onlinegames.io/games/2025/unity/monster-survivors/index-og.html" 
-                            class="w-full h-full border-0" 
-                            allowfullscreen></iframe>
-                </div>
+        <!-- 快速链接 -->
+        <nav class="nav-section">
+            <h3>快速链接</h3>
+            <a href="/featured" class="nav-item" aria-current="page">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>精选游戏</span>
+            </a>
+            <a href="/new" class="nav-item">
+                <i class="fas fa-plus" aria-hidden="true"></i>
+                <span>最新游戏</span>
+            </a>
+            <a href="/popular" class="nav-item">
+                <i class="fas fa-fire" aria-hidden="true"></i>
+                <span>热门游戏</span>
+            </a>
+            <a href="/categories" class="nav-item">
+                <i class="fas fa-th" aria-hidden="true"></i>
+                <span>所有分类</span>
+            </a>
+        </nav>
+
+        <!-- 游戏分类 -->
+        <nav class="nav-section" aria-label="游戏分类导航">
+            <h3>游戏分类</h3>
+            <a href="#" class="nav-item active" data-category="all">
+                <i class="fas fa-th-large" aria-hidden="true"></i>
+                <span>全部游戏</span>
+            </a>
+            <a href="#" class="nav-item" data-category="action">
+                <i class="fas fa-gamepad" aria-hidden="true"></i>
+                <span>动作</span>
+            </a>
+            <a href="#" class="nav-item" data-category="adventure">
+                <i class="fas fa-compass" aria-hidden="true"></i>
+                <span>冒险</span>
+            </a>
+            <a href="#" class="nav-item" data-category="puzzle">
+                <i class="fas fa-puzzle-piece" aria-hidden="true"></i>
+                <span>益智</span>
+            </a>
+            <a href="#" class="nav-item" data-category="strategy">
+                <i class="fas fa-chess" aria-hidden="true"></i>
+                <span>策略</span>
+            </a>
+            <a href="#" class="nav-item" data-category="sports">
+                <i class="fas fa-futbol" aria-hidden="true"></i>
+                <span>体育</span>
+            </a>
+            <a href="#" class="nav-item" data-category="racing">
+                <i class="fas fa-car" aria-hidden="true"></i>
+                <span>赛车</span>
+            </a>
+            <a href="#" class="nav-item" data-category="shooting">
+                <i class="fas fa-crosshairs" aria-hidden="true"></i>
+                <span>射击</span>
+            </a>
+            <a href="#" class="nav-item" data-category="multiplayer">
+                <i class="fas fa-users" aria-hidden="true"></i>
+                <span>休闲</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <!-- 顶部搜索栏 -->
+        <div class="top-bar">
+            <div class="search-bar" role="search">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <input type="text" id="searchInput" placeholder="搜索游戏..." aria-label="搜索游戏">
+                <div class="search-suggestions" id="searchSuggestions"></div>
+            </div>
+        </div>
+
+        <!-- 游戏特性栏 -->
+        <div class="features-bar" aria-label="网站特性">
+            <div class="feature-item">
+                <i class="fas fa-gamepad" aria-hidden="true"></i>
+                <span>4000+ 游戏</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-download" aria-hidden="true"></i>
+                <span>无需下载</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+                <span>全设备支持</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-users" aria-hidden="true"></i>
+                <span>多人游戏</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-gift" aria-hidden="true"></i>
+                <span>完全免费</span>
+            </div>
+        </div>
+
+        <!-- 分类标签 -->
+        <div class="categories-bar" role="tablist" aria-label="游戏分类">
+            <a href="#" class="category-tag active" data-category="all" role="tab" aria-selected="true">全部</a>
+            <a href="#" class="category-tag" data-category="action" role="tab" aria-selected="false">动作</a>
+            <a href="#" class="category-tag" data-category="adventure" role="tab" aria-selected="false">冒险</a>
+            <a href="#" class="category-tag" data-category="puzzle" role="tab" aria-selected="false">益智</a>
+            <a href="#" class="category-tag" data-category="strategy" role="tab" aria-selected="false">策略</a>
+            <a href="#" class="category-tag" data-category="sports" role="tab" aria-selected="false">体育</a>
+            <a href="#" class="category-tag" data-category="racing" role="tab" aria-selected="false">赛车</a>
+            <a href="#" class="category-tag" data-category="shooting" role="tab" aria-selected="false">射击</a>
+            <a href="#" class="category-tag" data-category="multiplayer" role="tab" aria-selected="false">多人</a>
+        </div>
+
+        <!-- 游戏网格 -->
+        <section class="games-grid" id="gamesGrid" aria-label="游戏列表">
+            <!-- 加载占位符 -->
+            <div class="loading-placeholder">
+                <div class="spinner" aria-hidden="true"></div>
+                <p>加载游戏中...</p>
             </div>
         </section>
-
-        <section id="about" class="my-12">
-            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-apple-blue">About Infinite Playground</h2>
-            <div class="bg-white rounded-lg shadow-lg p-6">
-                <p class="mb-4">Infinite Playground is an action-packed roguelike survival game where you must fight against endless waves of monsters. Each run is unique, with random enemy spawns, power-ups, and challenges to overcome.</p>
-                <p>Inspired by games like Vampire Survivors, this game combines fast-paced action with strategic character building. How long can you survive as the difficulty continuously increases?</p>
-            </div>
-        </section>
-
-        <section id="features" class="my-12">
-            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-apple-blue">Game Features</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold text-apple-orange mb-3">Multiple Characters</h3>
-                    <p>Choose from various characters, each with unique starting weapons and abilities.</p>
-                </div>
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold text-apple-green mb-3">Weapon Evolution</h3>
-                    <p>Combine weapons and passive items to create powerful evolved weapons with special effects.</p>
-                </div>
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold text-apple-purple mb-3">Level Up System</h3>
-                    <p>Gain experience by defeating enemies and level up to choose new weapons or upgrades.</p>
-                </div>
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold text-apple-red mb-3">Boss Battles</h3>
-                    <p>Face off against massive boss monsters that appear at specific time intervals.</p>
-                </div>
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold text-apple-yellow mb-3">Treasure Chests</h3>
-                    <p>Find and open treasure chests to receive random items, gold, or special power-ups.</p>
-                </div>
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold text-apple-blue mb-3">Daily Challenges</h3>
-                    <p>Complete daily challenges to earn rewards and climb the global leaderboard.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="controls" class="my-12">
-            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-apple-blue">Game Controls</h2>
-            <div class="bg-white rounded-lg shadow-lg p-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <h3 class="text-xl font-semibold text-apple-purple mb-3">Keyboard Controls</h3>
-                        <ul class="list-disc pl-5 space-y-2">
-                            <li><span class="font-semibold">WASD or Arrow Keys:</span> Move your character</li>
-                            <li><span class="font-semibold">Space:</span> Pause the game</li>
-                            <li><span class="font-semibold">E or Enter:</span> Select/Confirm</li>
-                            <li><span class="font-semibold">Esc:</span> Back/Menu</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-apple-orange mb-3">Mobile Controls</h3>
-                        <ul class="list-disc pl-5 space-y-2">
-                            <li><span class="font-semibold">Virtual Joystick:</span> Appears on the left side of the screen for movement</li>
-                            <li><span class="font-semibold">Tap Buttons:</span> Menu and action buttons on the right side</li>
-                            <li><span class="font-semibold">Swipe:</span> Navigate menus and selection screens</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
+        <!-- 加载更多按钮 -->
+        <div class="load-more-container">
+            <button id="loadMoreBtn" class="load-more-btn">加载更多游戏</button>
+        </div>
     </main>
 
-    <footer class="bg-apple-dark text-white p-6">
-        <div class="container mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-4 md:mb-0">
-                    <p>&copy; 2025 Infinite Playground. All rights reserved.</p>
-                </div>
-                <div class="flex space-x-4">
-                    <a href="#" class="hover:text-apple-blue transition-colors">Privacy Policy</a>
-                    <a href="#" class="hover:text-apple-blue transition-colors">Terms of Service</a>
-                    <a href="#" class="hover:text-apple-blue transition-colors">Contact</a>
+    <!-- 游戏预览模态框 -->
+    <div id="gamePreviewModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="关闭预览">&times;</button>
+            <div class="modal-body">
+                <!-- 内容将由JavaScript动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>关于我们</h3>
+                <p>Infinite Playground 提供最好的免费在线游戏集合。现在就开始游戏吧！</p>
+                <div class="footer-features">
+                    <div class="feature">
+                        <i class="fas fa-gamepad" aria-hidden="true"></i>
+                        <span>4000+ 游戏</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-users" aria-hidden="true"></i>
+                        <span>百万玩家</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+                        <span>全平台支持</span>
+                    </div>
                 </div>
             </div>
+            <div class="footer-section">
+                <h3>快速链接</h3>
+                <ul>
+                    <li><a href="/featured"><i class="fas fa-star" aria-hidden="true"></i> 精选游戏</a></li>
+                    <li><a href="/new"><i class="fas fa-plus" aria-hidden="true"></i> 最新游戏</a></li>
+                    <li><a href="/popular"><i class="fas fa-fire" aria-hidden="true"></i> 热门游戏</a></li>
+                    <li><a href="/categories"><i class="fas fa-th" aria-hidden="true"></i> 所有分类</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>联系我们</h3>
+                <p>有任何问题或建议？请联系我们！</p>
+            </div>
+            <div class="footer-section">
+                <h3>关注我们</h3>
+                <div class="social-links">
+                    <a href="#" aria-label="关注我们的Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="关注我们的Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="关注我们的Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Infinite Playground. 保留所有权利。</p>
         </div>
     </footer>
 
-    <!-- JSON-LD structured data for SEO -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "VideoGame",
-        "name": "Infinite Playground",
-        "description": "Survive endless waves of monsters in this action-packed roguelike game. Upgrade your character, collect powerful items, and face increasingly difficult challenges.",
-        "genre": ["Action", "Roguelike", "Survival"],
-        "playMode": "SinglePlayer",
-        "applicationCategory": "Game",
-        "url": "https://monstersurvivors.com",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD",
-            "availability": "https://schema.org/InStock"
-        }
-    }
-    </script>
+    <!-- 延迟加载的脚本 -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/imageLoader.js"></script>
+    <script src="js/main.js"></script>
 </body>
-</html>
+</html> 
